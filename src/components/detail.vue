@@ -49,7 +49,9 @@
 				details: (state)  => state.detail.details,
 				currentYear: (state) => state.detail.currentYear,
 				typeID: (state) => state.image.typeID,
-				ColorID: (state) => state.image.ColorID
+				ColorID: (state) => state.image.ColorID,
+				colorName: (state) => state.imgColor.colorName,
+				typeName: (state) => state.imgType.typeName
 			}),
 			...mapGetters({
 				year: 'detail/year',
@@ -64,6 +66,8 @@
 			...mapMutations({
 				getYear: 'detail/getYear',
 				setId: 'image/setId',
+				changName: 'imgColor/changName',
+				changType: 'imgType/changType',
 			}),
 			setYear(e) {
 				this.getYear(e.target.innerText.trim())
@@ -75,6 +79,8 @@
 		                id:id
 		            }
 		        }),
+		       this.changName('颜色')
+		       this.changType('车款')
 		       this.setId({typeID:null, ColorID: null})
 		       this.getImgList({SerialID: this.$route.query.id, ColorID: this.ColorID, CarID: this.typeID})
 			}
