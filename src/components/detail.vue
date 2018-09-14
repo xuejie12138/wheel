@@ -86,6 +86,7 @@
 			}
 		},
 		mounted() {
+			_hmt.push(['_trackEvent', '汽车详情', 'tap', '跳转详情']);
 			this.initDetail(this.$route.query.id)
 
 		},

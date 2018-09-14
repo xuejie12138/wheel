@@ -1,5 +1,5 @@
 <template>
-	<div class="list">
+	<div class="list" ref="list">
 	 	<ul>
 	 		<li v-for="(item, index) in list.List" @click="imgTap(item.Id,index)">
 				<img :data-src="item.Url" src=""/>
@@ -11,7 +11,6 @@
 <script>
 	import {mapState,mapGetters, mapMutations, mapActions} from 'vuex';
 	import { swiper, swiperSlide } from 'vue-awesome-swiper'
-	import lazyload from '../../util/lazyload'
 	export default {
 		computed: {
 			...mapState({
@@ -32,9 +31,13 @@
 		},
 		mounted() {
 			console.log(this.imgList)
+
 		},
 		updated() {
-			lazyload('.list')
+			console.log(this.$refs)
+			window.addEventListener('scroll',function(){
+			 	console.log(456)
+			 })
 		}
 	}
 </script>
