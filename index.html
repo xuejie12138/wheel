@@ -15,6 +15,14 @@
       overflow: hidden;
     }
   </style>
+  <script src="https://browser.sentry-cdn.com/4.0.4/bundle.min.js" crossorigin="anonymous"></script>
+  <script>
+    Sentry.init({ dsn: 'https://a0bb9c002d894d78a388f0053590b051@sentry.io/1286113' });
+
+    setInterval(function(){
+      console.log(aa.bbb)
+    },2000)
+  </script>
   <script>
     var func = () => {
         document.documentElement.style.fontSize = (window.innerWidth) / 750 * 100 + 'px';
