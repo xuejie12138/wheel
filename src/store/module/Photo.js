@@ -1,13 +1,15 @@
 import {getImgDetailList} from '@/api/index'
 let state = {
-	imgList: [],
+	imgList: {},
 	flag:false,
 	isImgs:false,
 	ind:0,
-	num: 0
+	num: 0,
+	page:1
 }
 let getters = {
 	list(state) {
+		// console.log(state.imgList)
 		if(!state.imgList.List){
 			return [];
 		}
@@ -19,6 +21,7 @@ let getters = {
 			for(var i=0;i<state.imgList.List.length;i++) {
 				url(state.imgList.List[i])
 			}
+
 		return state.imgList
 	}
 }
@@ -26,11 +29,24 @@ let getters = {
 
 let mutations = {
 	photos: (state, payload) => {
-		state.imgList = payload;
-		console.log(payload)
+		console.log(payload.list)
+		if (payload.type === 'click') {
+			state.imgList = payload.data
+			state.page = 1
+		}else {
+			let list = state.imgList.List.concat(payload.data.List)
+			console.log(payload.data)
+			state.imgList.List = list
+			state.page++
+		}
+		// console.log(state.page)
+		
+	},
+	resePpage(state, payload) {
+		state.page = 1
 	},
 	isFlagT: (state, payload) => {
-		console.log(payload)
+		// console.log(payload)
 		state.ind = payload.ind;
 		state.num = payload.count;
 		state.flag = true
@@ -45,10 +61,10 @@ let mutations = {
 }
 
 let actions = {
-	photos: ({commit}, payload) => {
-		console.log(payload)
-		getImgDetailList(payload.SerialID,payload.ImageID,payload.ColorID?payload.ColorID:'', payload.CarID?payload.CarID:'').then(res => {
-			commit('photos', res.data)
+	photos: ({commit, state}, payload) => {
+		getImgDetailList(payload.SerialID,payload.ImageID,payload.ColorID, payload.CarID, state.page).then(res => {
+			// console.log(res.data.List)
+			commit('photos', {data:res.data, list: res.data.List , type:payload.Type})
 		})
 	}
 }

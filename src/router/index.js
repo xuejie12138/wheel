@@ -7,6 +7,7 @@ const Type = () => import('@/components/type')
 const Image = () => import('@/components/images')
 const Login = () => import('@/components/login')
 const ImgColor = () => import('@/components/ImgColor')
+const Cities = () => import('@/components/city')
 // const Login = () => import('@/components/login')
 Vue.use(Router)
 
@@ -37,6 +38,11 @@ Vue.use(Router)
       path: '/imgColor',
       name: 'imgColor',
       component: ImgColor
+    },
+    {
+      path: '/cities',
+      name: 'Cities',
+      component: Cities
     },
     {
     	path: '*',

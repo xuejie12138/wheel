@@ -1,8 +1,8 @@
 <template>
-	<div class="list" ref="list">
-	 	<ul>
+	<div class="list" @scroll="scroll" ref="scroll">
+	 	<ul  ref="list">
 	 		<li v-for="(item, index) in list.List" @click="imgTap(item.Id,index)">
-				<img :data-src="item.Url" src=""/>
+				<img :data-src="item.Url" :src="item.Url"/>
 	 		</li>
 	 	</ul>
 	</div>
@@ -14,7 +14,9 @@
 	export default {
 		computed: {
 			...mapState({
-				imgList: state => state.Photo.imgList
+				imgList: state => state.Photo.imgList,
+				typeID: (state) => state.image.typeID,
+				ColorID: (state) => state.image.ColorID
 			}),
 			...mapGetters({
 				list: 'Photo/list'
@@ -24,20 +26,26 @@
 			...mapMutations({
 				isFlagT: 'Photo/isFlagT'
 			}),
+			...mapActions({
+				photos: 'Photo/photos'
+			}),
 			imgTap(id,index){
 				// console.log(this.list.Count)
 				this.isFlagT({ind:index,count:this.list.Count})
 			},
+			scroll() {
+				let scrollTop = this.$refs.scroll.scrollTop;
+				let eleHeight =  this.$refs.list.getBoundingClientRect().height;
+				if(window.innerHeight + scrollTop + 20 > eleHeight) {
+					this.photos({SerialID:this.$route.query.id,ImageID:this.imgList.ID, ColorID: this.ColorID, CarID: this.typeID,Type: 'scroll'})
+				}
+			}
 		},
 		mounted() {
-			console.log(this.imgList)
-
+			
 		},
 		updated() {
-			console.log(this.$refs)
-			window.addEventListener('scroll',function(){
-			 	console.log(456)
-			 })
+
 		}
 	}
 </script>
@@ -54,29 +62,10 @@
 	}
 	.list ul {
 		position:relative;
-		height:auto;
-		clear:both;
+		display:flex;
 		flex-wrap:wrap;
 	}
-	.list ul>div{
-		position: absolute;
-		top:0;
-		left:0;
-		width: 2.46rem;
-	    height: 2.46rem;
-	    text-align: center;
-    	background: rgba(56,90,130,.5);
-    	color:#fff;
-	}
-	.list ul>div p:first-child {
-	    font-size: .28rem;
-	    margin-top: .8rem;
-	}
-	.list ul>div p:last-child {
-	    font-size: .26rem;
-	}
 	.list ul li {
-		float:left;
 	    margin-right: .04rem;
 	    margin-bottom: .06rem;
 	    width: 2.46rem;

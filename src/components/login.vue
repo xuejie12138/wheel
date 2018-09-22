@@ -19,7 +19,7 @@
 		methods: {
 			login() {
 				_hmt.push(['_trackEvent', '汽车报价', 'tap', '登陆点击']);
-				console.log(46513)
+				// console.log(46513)
 				let user = this.$refs.user.value,
 					pass = this.$refs.pass.value;
 				if(user === 'xuejie' && pass === 'xj123456') {

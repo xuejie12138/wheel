@@ -53,7 +53,7 @@ export let getImgList = (SerialID, ColorID = null, CarID = null)=>{
  * @param pageSize 每页列表数量
  * @return promise 返回一个promise
  */
-export let getImgDetailList = (id, imgId, ColorID=null, CarID = null, page = 1, pageSize = 30)=>{
+export let getImgDetailList = (id, imgId, ColorID, CarID, page = 1, pageSize = 30)=>{
     let search = `SerialID=${id}&ImageID=${imgId}&Page=${page}&PageSize=${pageSize}`;
     if (CarID){
         search += `&CarID=${CarID}`;
@@ -118,4 +118,8 @@ export let submit = (info)=>{
     }
     search[0] = '?'
     return sendRequest(`${host}/h2-submit-lowprice.html${search}`);
+}
+
+export let city = (phone) => {
+	return sendRequest('http://123.206.55.50:8080/getCapture', 'POST', {phone})
 }

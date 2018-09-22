@@ -23,6 +23,7 @@ let getters = {
 
 let mutations = {
 	obtainList: (state, payload) => {
+		console.log(456123156468789456)
 		state.imgList = [...payload]
 	},
 	setId: (state, payload) => {
@@ -36,7 +37,7 @@ let mutations = {
 
 let actions = {
 	getImgList: ({commit,state}, payload) => {
-		console.log(payload)
+		// console.log(payload)
 		getImgList(payload.SerialID, payload.ColorID, payload.CarID).then(res=>{
 			commit('obtainList', res.data)
 		})

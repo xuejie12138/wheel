@@ -35,8 +35,8 @@
 				flag: (state) => state.Photo.flag,
 				isImgs: (state) => state.Photo.isImgs,
 				ind: (state) => state.Photo.ind,
-				colorId: (state) => state.imgColor.colorId,
-				carId: (state) => state.imgType.carId,
+				typeID: (state) => state.image.typeID,
+				ColorID: (state) => state.image.ColorID,
 				colorName: (state) => state.imgColor.colorName,
 				typeName: (state) => state.imgType.typeName
 			}),
@@ -52,30 +52,21 @@
 			...mapActions({
 				photos:'Photo/photos',
 				getColorList: 'imgColor/getColorList',
-				// getImgList: 'image/getImgList',
+				getImgList: 'image/getImgList',
 			}),
 			...mapMutations({
 				isFlagT: 'Photo/isFlagT',
 				isImages: 'Photo/isImages',
-				isFlagF: 'Photo/isFlagF'
+				isFlagF: 'Photo/isFlagF',
+				resePpage: 'Photo/resePpage'
 			}),
 			imgTap(id,index, count){
-				console.log(this.colorId)
 				this.isFlagT({ind:index,count:count})
-				if(this.colorId || this.carId){
-					this.photos({SerialID:this.$route.query.id,ImageID:id, ColorID: this.colorId?this.colorId: '', CarID: this.carId?this.carId:''})
-				}else{
-					this.photos({SerialID:this.$route.query.id,ImageID:id})
-				}
-				
+				this.photos({SerialID:this.$route.query.id,ImageID:id, ColorID: this.ColorID, CarID: this.typeID,Type:'click'})
 			},
 			getImgs(id){
 				this.isImages(true)
-				if(this.colorId){
-					this.photos({SerialID:this.$route.query.id,ImageID:id, ColorID: this.colorId})
-				}else{
-					this.photos({SerialID:this.$route.query.id,ImageID:id})
-				}
+				this.photos({SerialID:this.$route.query.id,ImageID:id, ColorID: this.ColorID, CarID: this.typeID,Type:'click'})
 			},
 			imgColor(id) {
 				this.$router.push({
@@ -98,11 +89,12 @@
 		mounted() {
 			this.isImages(false)
 			this.isFlagF()
-			// this.obtainList(this.$route.query.id)
-			// this.getImgList({SerialID:this.$route.query.id})
+			// console.log(this.ColorID, this.typeID)
+			// this.getImgList({SerialID: this.$route.query.id, ColorID: this.ColorID, CarID: this.typeID})
+			this.resePpage()
 		},
 		updated() {
-
+			
 		}
 	}
 </script>

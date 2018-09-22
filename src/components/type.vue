@@ -45,7 +45,7 @@
 			...mapMutations({
 				setYear: 'imgType/setYear',
 				changType: 'imgType/changType',
-				carId: 'imgType/carId',
+				// carId: 'imgType/carId',
 				setId: 'image/setId',
 				
 			}),
@@ -56,11 +56,11 @@
 				this.$router.back(-1)
 				if(Number(id) && name) {
 					this.changType(name)
-					this.carId(id)
+					// this.carId(id)
 					this.setId({typeID:id})
 				}else{
 					this.changType('全部车款')
-					this.carId()
+					// this.carId()
 					this.setId({typeID:null})
 				}
 				this.getImgList({SerialID: this.$route.query.id, ColorID: this.ColorID, CarID: this.typeID})
